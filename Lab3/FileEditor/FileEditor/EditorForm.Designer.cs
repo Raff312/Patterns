@@ -1,6 +1,6 @@
 ﻿
-namespace FactoryMethod {
-    partial class MainForm {
+namespace FileEditor {
+    partial class EditorForm {
         /// <summary>
         ///  Required designer variable.
         /// </summary>
@@ -118,7 +118,7 @@ namespace FactoryMethod {
             this.ExitToolStripMenuItem.Text = "Exit";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
-            // MainForm
+            // EditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -126,8 +126,8 @@ namespace FactoryMethod {
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "MainForm";
-            this.Text = "Main";
+            this.Name = "EditorForm";
+            this.Text = "Editor";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

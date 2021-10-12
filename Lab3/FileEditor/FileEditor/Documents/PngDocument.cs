@@ -1,84 +1,22 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
 
-namespace FactoryMethod {
-    public abstract class Document {
-        public abstract void New();
-        public abstract void Open();
-        public abstract void SaveAs();
-        public abstract void Close();
-    }
-
-    public class TxtDocument : Document {
-        private readonly TxtDocumentForm _form;
-        private readonly OpenFileDialog _openFileDialog;
-        private readonly SaveFileDialog _saveFileDialog;
-
-        public TxtDocument(Form parentForm) {
-            _form = new TxtDocumentForm(parentForm, this);
-
-            _openFileDialog = new OpenFileDialog();
-            _saveFileDialog = new SaveFileDialog();
-            _openFileDialog.Filter = _saveFileDialog.Filter = @"Text files (*.txt)|*.txt|All files (*.*)|*.*";
-            _openFileDialog.FileName = _saveFileDialog.FileName = @"Document";
-        }
-
-        public override void New() {
-            _form.ShowForm();
-        }
-
-        public override void Open() {
-            if (_openFileDialog.ShowDialog() != DialogResult.OK) {
-                return;
-            }
-            
-            var docName = new FileInfo(_openFileDialog.FileName);
-            _form.Text = docName.Name;
-
-            var fileContent = File.ReadAllText(_openFileDialog.FileName);
-            _form.ShowText(fileContent);
-
-            _form.ShowForm();
-        }
-
-        public override void SaveAs() {
-            if (_saveFileDialog.ShowDialog() != DialogResult.OK) {
-                return;
-            }
-            
-            var save = new StreamWriter(_saveFileDialog.FileName, false, Encoding.GetEncoding("utf-8"));
-            save.Write(_form.RichTextBox.Text);
-            save.Close();
-        }
-
-        public override void Close() {
-            var result = MessageBox.Show(@"Are you sure you want to close the document?", @"Close document",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2);
-
-            if (result == DialogResult.Yes) {
-                _form.Close();
-            }
-        }
-    }
-
+namespace FileEditor.Documents {
     public class PngDocument : Document {
-        private readonly Pen _pen = new (Color.Black);
-        private readonly PngDocumentForm _form;
+        private readonly Pen _pen = new(Color.Black);
+        private readonly PngEditorForm _form;
         private readonly OpenFileDialog _openFileDialog;
         private readonly SaveFileDialog _saveFileDialog;
         private readonly ColorDialog _colorDialog;
         private Bitmap _oldImage;
 
         private Point _startPoint;
-        private readonly Point _nullPoint = new (int.MaxValue, 0);
+        private readonly Point _nullPoint = new(int.MaxValue, 0);
 
         public PngDocument(Form parentForm) {
-            _form = new PngDocumentForm(parentForm, this);
+            _form = new PngEditorForm(parentForm, this);
 
             _openFileDialog = new OpenFileDialog();
             _saveFileDialog = new SaveFileDialog();
@@ -100,7 +38,7 @@ namespace FactoryMethod {
                 return;
             }
 
-            var color = ((Bitmap) _form.PictureBox.Image).GetPixel(e.X, e.Y);
+            var color = ((Bitmap)_form.PictureBox.Image).GetPixel(e.X, e.Y);
             if (e.Button == MouseButtons.Left)
                 _form.ColorPalette.BackColor = color;
         }
@@ -118,7 +56,7 @@ namespace FactoryMethod {
                 return;
             }
 
-            var graphics = Graphics.FromImage(_form.PictureBox.Image);
+            using var graphics = Graphics.FromImage(_form.PictureBox.Image);
             graphics.DrawLine(_pen, _startPoint, e.Location);
             graphics.Dispose();
             _startPoint = e.Location;
@@ -139,7 +77,7 @@ namespace FactoryMethod {
 
             try {
                 Image image = new Bitmap(fileName);
-                var graphics = Graphics.FromImage(image);
+                using var graphics = Graphics.FromImage(image);
                 graphics.Dispose();
 
                 _form.PictureBox.Image?.Dispose();
@@ -182,6 +120,12 @@ namespace FactoryMethod {
             _form.Text = @"Image Editor - " + newFileName;
         }
 
+        public override void Clear() {
+            using var graphics = Graphics.FromImage(_form.PictureBox.Image);
+            graphics.Clear(Color.White);
+            _form.PictureBox.Invalidate();
+        }
+
         public override void Close() {
             var result = MessageBox.Show(@"Are you sure you want to close the document?", @"Close document",
                 MessageBoxButtons.YesNo,
@@ -199,10 +143,5 @@ namespace FactoryMethod {
                 _pen.Color = _form.ColorPalette.BackColor = _colorDialog.Color;
             }
         }
-    }
-
-    public enum DocumentType {
-        Txt,
-        Png
     }
 }

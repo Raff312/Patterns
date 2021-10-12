@@ -1,6 +1,6 @@
 ﻿
-namespace FactoryMethod {
-    partial class PngDocumentForm {
+namespace FileEditor {
+    partial class PngEditorForm {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -24,7 +24,7 @@ namespace FactoryMethod {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PngDocumentForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PngEditorForm));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.OpenToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.SaveToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -33,6 +33,7 @@ namespace FactoryMethod {
             this.ColorPalette = new System.Windows.Forms.Label();
             this.Panel = new System.Windows.Forms.Panel();
             this.PictureBox = new System.Windows.Forms.PictureBox();
+            this.ClearToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).BeginInit();
@@ -44,7 +45,8 @@ namespace FactoryMethod {
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.OpenToolStripButton,
             this.SaveToolStripButton,
-            this.CloseToolStripButton});
+            this.CloseToolStripButton,
+            this.ClearToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(800, 27);
@@ -117,7 +119,17 @@ namespace FactoryMethod {
             this.PictureBox.TabIndex = 0;
             this.PictureBox.TabStop = false;
             // 
-            // PngDocumentForm
+            // ClearToolStripButton
+            // 
+            this.ClearToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ClearToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("ClearToolStripButton.Image")));
+            this.ClearToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ClearToolStripButton.Name = "ClearToolStripButton";
+            this.ClearToolStripButton.Size = new System.Drawing.Size(29, 24);
+            this.ClearToolStripButton.Text = "Clear";
+            this.ClearToolStripButton.Click += new System.EventHandler(this.ClearToolStripButton_Click);
+            // 
+            // PngEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -126,8 +138,8 @@ namespace FactoryMethod {
             this.Controls.Add(this.ColorPalette);
             this.Controls.Add(this.ColorLabel);
             this.Controls.Add(this.toolStrip1);
-            this.Name = "PngDocumentForm";
-            this.Text = "PngDocumentForm";
+            this.Name = "PngEditorForm";
+            this.Text = "Png Editor";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.Panel.ResumeLayout(false);
@@ -147,5 +159,6 @@ namespace FactoryMethod {
         private System.Windows.Forms.Panel Panel;
         public System.Windows.Forms.PictureBox PictureBox;
         public System.Windows.Forms.Label ColorPalette;
+        private System.Windows.Forms.ToolStripButton ClearToolStripButton;
     }
 }

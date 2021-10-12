@@ -1,12 +1,13 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
+using FileEditor.Documents;
 
-namespace FactoryMethod {
-    public partial class PngDocumentForm : Form {
+namespace FileEditor {
+    public partial class PngEditorForm : Form {
         private readonly Form _parentForm;
         private readonly PngDocument _document;
 
-        public PngDocumentForm(Form parentForm, PngDocument document) {
+        public PngEditorForm(Form parentForm, PngDocument document) {
             InitializeComponent();
             _document = document;
             _parentForm = parentForm;
@@ -15,7 +16,7 @@ namespace FactoryMethod {
 
         private void InitializePictureBox() {
             Image image = new Bitmap(PictureBox.Width, PictureBox.Width);
-            var graphics = Graphics.FromImage(image);
+            using var graphics = Graphics.FromImage(image);
             graphics.Clear(Color.White);
             graphics.Dispose();
 
@@ -42,6 +43,10 @@ namespace FactoryMethod {
 
         private void ColorPalette_Click(object sender, System.EventArgs e) {
             _document.ChooseColor();
+        }
+
+        private void ClearToolStripButton_Click(object sender, System.EventArgs e) {
+            _document.Clear();
         }
     }
 }

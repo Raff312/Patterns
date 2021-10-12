@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Windows.Forms;
+using FileEditor.Documents;
 
-namespace FactoryMethod {
-    public partial class TxtDocumentForm : Form {
+namespace FileEditor {
+    public partial class TxtEditorForm : Form {
         private readonly Form _parentForm;
         private readonly TxtDocument _document;
 
-        public TxtDocumentForm(Form parentForm, TxtDocument document) {
+        public TxtEditorForm(Form parentForm, TxtDocument document) {
             InitializeComponent();
             _document = document;
             _parentForm = parentForm;
@@ -31,6 +32,10 @@ namespace FactoryMethod {
 
         private void CloseToolStripButton_Click(object sender, EventArgs e) {
             _document.Close();
+        }
+
+        private void ClearToolStripButton_Click(object sender, EventArgs e) {
+            _document.Clear();
         }
     }
 }

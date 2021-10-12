@@ -1,6 +1,6 @@
 ﻿
-namespace FactoryMethod {
-    partial class TxtDocumentForm {
+namespace FileEditor {
+    partial class TxtEditorForm {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -24,12 +24,13 @@ namespace FactoryMethod {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TxtDocumentForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TxtEditorForm));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.OpenToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.SaveToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.CloseToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.RichTextBox = new System.Windows.Forms.RichTextBox();
+            this.ClearToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -39,7 +40,8 @@ namespace FactoryMethod {
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.OpenToolStripButton,
             this.SaveToolStripButton,
-            this.CloseToolStripButton});
+            this.CloseToolStripButton,
+            this.ClearToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(800, 27);
@@ -85,15 +87,25 @@ namespace FactoryMethod {
             this.RichTextBox.TabIndex = 1;
             this.RichTextBox.Text = "";
             // 
-            // TxtDocumentForm
+            // ClearToolStripButton
+            // 
+            this.ClearToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ClearToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("ClearToolStripButton.Image")));
+            this.ClearToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ClearToolStripButton.Name = "ClearToolStripButton";
+            this.ClearToolStripButton.Size = new System.Drawing.Size(29, 24);
+            this.ClearToolStripButton.Text = "Clear";
+            this.ClearToolStripButton.Click += new System.EventHandler(this.ClearToolStripButton_Click);
+            // 
+            // TxtEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.RichTextBox);
             this.Controls.Add(this.toolStrip1);
-            this.Name = "TxtDocumentForm";
-            this.Text = "TxtDocumentForm";
+            this.Name = "TxtEditorForm";
+            this.Text = "Txt Editor";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -108,5 +120,6 @@ namespace FactoryMethod {
         private System.Windows.Forms.ToolStripButton SaveToolStripButton;
         private System.Windows.Forms.ToolStripButton CloseToolStripButton;
         public System.Windows.Forms.RichTextBox RichTextBox;
+        private System.Windows.Forms.ToolStripButton ClearToolStripButton;
     }
 }

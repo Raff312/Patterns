@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
+using FileEditor.Documents;
+using FileEditor.Editors;
 
-namespace FactoryMethod {
-    public partial class MainForm : Form {
-        public MainForm() {
+namespace FileEditor {
+    public partial class EditorForm : Form {
+        public EditorForm() {
             InitializeComponent();
         }
 
@@ -24,14 +26,14 @@ namespace FactoryMethod {
         }
 
         private void HandleDocumentAction(DocumentType documentType, ActionType actionType) {
-            App application = documentType == DocumentType.Txt
-                ? new TxtApplication(this)
-                : new PngApplication(this);
+            Editor editor = documentType == DocumentType.Txt
+                ? new TxtEditor(this)
+                : new PngEditor(this);
 
             if (actionType == ActionType.Create) {
-                application.CreateDocument();
+                editor.CreateDocument();
             } else {
-                application.OpenDocument();
+                editor.OpenDocument();
             }
         }
 
