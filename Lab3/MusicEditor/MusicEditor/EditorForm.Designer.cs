@@ -202,14 +202,13 @@ namespace MusicEditor {
             // 
             // scoreSheetPanel
             // 
-            this.scoreSheetPanel.AutoScroll = true;
+            this.scoreSheetPanel.AutoSize = true;
             this.scoreSheetPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.scoreSheetPanel.Location = new System.Drawing.Point(37, 0);
+            this.scoreSheetPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scoreSheetPanel.Location = new System.Drawing.Point(0, 0);
             this.scoreSheetPanel.Margin = new System.Windows.Forms.Padding(25);
-            this.scoreSheetPanel.MaximumSize = new System.Drawing.Size(1250, 6250);
-            this.scoreSheetPanel.MinimumSize = new System.Drawing.Size(1250, 2250);
             this.scoreSheetPanel.Name = "scoreSheetPanel";
-            this.scoreSheetPanel.Size = new System.Drawing.Size(1250, 2250);
+            this.scoreSheetPanel.Size = new System.Drawing.Size(1024, 500);
             this.scoreSheetPanel.TabIndex = 0;
             this.scoreSheetPanel.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.scoreSheetPanel_ControlAdded);
             this.scoreSheetPanel.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.scoreSheetPanel_ControlRemoved);
@@ -232,6 +231,7 @@ namespace MusicEditor {
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

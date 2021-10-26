@@ -1,5 +1,6 @@
 ﻿using MusicEditor.Controls;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MusicEditor.Models {
@@ -12,9 +13,9 @@ namespace MusicEditor.Models {
             StaffControls = new List<StaffTransportControl>();
         }
 
-        public static void Play() {
+        public static async Task Play() {
             foreach (var control in NoteControls) {
-                control.Note.Play();
+                await control.Note.Play();
             }
         }
 

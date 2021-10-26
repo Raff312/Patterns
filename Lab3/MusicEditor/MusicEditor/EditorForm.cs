@@ -4,7 +4,7 @@ using MusicEditor.Controls;
 using MusicEditor.Graphic;
 using MusicEditor.Models;
 using MusicEditor.Tool;
-using PianoSoundLibrary.Library;
+using NAudio.Midi;
 
 namespace MusicEditor {
     public partial class EditorForm : Form {
@@ -19,7 +19,7 @@ namespace MusicEditor {
         public Position StaffPosition { get; set; }
         public Position NotePosition { get; set; }
 
-        public OutputDevice OutputDevice { get; private set; }
+        public MidiOut OutputDevice { get; private set; }
 
         public EditorForm() {
             InitializeComponent();
@@ -34,7 +34,7 @@ namespace MusicEditor {
             NotePosition = new Position(43, 32);
             StaffPosition = new Position(20, 19);
 
-            OutputDevice = new OutputDevice(0);
+            OutputDevice = new MidiOut(0);
 
             DrawObject(_staff);
         }
@@ -116,8 +116,8 @@ namespace MusicEditor {
             }
         }
 
-        private void btnPlay_Click(object sender, System.EventArgs e) {
-            ObjectsStore.Play();
+        private async void btnPlay_Click(object sender, System.EventArgs e) {
+            await ObjectsStore.Play();
         }
 
         private void btnClear_Click(object sender, System.EventArgs e) {

@@ -1,9 +1,9 @@
 ﻿using MusicEditor.Controls;
 using MusicEditor.Models;
 using MusicEditor.Properties;
-using PianoSoundLibrary.Library;
+using NAudio.Midi;
 using System;
-using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MusicEditor.Graphic {
@@ -18,37 +18,12 @@ namespace MusicEditor.Graphic {
             InitImage(duration);
         }
 
-        private void InitImage(int duration) {
-            switch (duration) {
-                case 62:
-                    Image = Resources.SixteenthNoteSmall2323;
-                    Length = NoteLength.Sixteenth;
-                    break;
-                case 125:
-                    Image = Resources.EighthNoteSmall2323;
-                    Length = NoteLength.Eighth;
-                    break;
-                case 250:
-                    Image = Resources.QuarterNoteSmall2323;
-                    Length = NoteLength.Quarter;
-                    break;
-                case 500:
-                    Image = Resources.HalfNoteSmall2323;
-                    Length = NoteLength.Half;
-                    break;
-                case 1000:
-                    Image = Resources.WholeNoteSmall2323;
-                    Length = NoteLength.Whole;
-                    break;
-            }
-        }
-
-        public void Play() {
+        public async Task Play() {
             try {
                 if (Form is EditorForm form && Value <= 127) {
-                    form.OutputDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, Value, 127));
-                    Thread.Sleep(Duration);
-                    form.OutputDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, Value, 127));
+                    form.OutputDevice.Send(MidiMessage.StartNote(Value, 127, 1).RawData);
+                    await Task.Delay(Duration).ConfigureAwait(false);
+                    form.OutputDevice.Send(MidiMessage.StopNote(Value, 107, 1).RawData);
                 } else {
                     MessageBox.Show("Some errors occured");
                 }
@@ -92,6 +67,31 @@ namespace MusicEditor.Graphic {
                 }
             }
             return null;
+        }
+
+        private void InitImage(int duration) {
+            switch (duration) {
+                case 62:
+                    Image = Resources.SixteenthNoteSmall2323;
+                    Length = NoteLength.Sixteenth;
+                    break;
+                case 125:
+                    Image = Resources.EighthNoteSmall2323;
+                    Length = NoteLength.Eighth;
+                    break;
+                case 250:
+                    Image = Resources.QuarterNoteSmall2323;
+                    Length = NoteLength.Quarter;
+                    break;
+                case 500:
+                    Image = Resources.HalfNoteSmall2323;
+                    Length = NoteLength.Half;
+                    break;
+                case 1000:
+                    Image = Resources.WholeNoteSmall2323;
+                    Length = NoteLength.Whole;
+                    break;
+            }
         }
 
         public override Graphic Clone() {
