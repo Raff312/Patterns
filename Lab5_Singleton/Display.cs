@@ -20,7 +20,7 @@ namespace Lab5_Singleton {
 
         public void Dispose() {
             _instance = null;
-            Log.GetInstance().Write(MessageType.Info, "Display deleted");
+            Log.GetInstance().Write(MessageType.Info, "Display instance deleted");
         }
 
         public static Display GetInstance() {

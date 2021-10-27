@@ -10,7 +10,7 @@ namespace Lab5_Singleton {
 
         public void Dispose() {
             _instance = null;
-            Log.GetInstance().Write(MessageType.Info, "Keyboard deleted");
+            Log.GetInstance().Write(MessageType.Info, "Keyboard instance deleted");
         }
 
         public static Keyboard GetInstance() {
