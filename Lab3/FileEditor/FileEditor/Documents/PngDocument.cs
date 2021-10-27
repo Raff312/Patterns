@@ -83,7 +83,7 @@ namespace FileEditor.Documents {
                 _form.PictureBox.Image?.Dispose();
                 _form.PictureBox.Image = image;
 
-                _form.Show();
+                _form.ShowForm();
                 UpdateImage();
             } catch {
                 MessageBox.Show(@"File " + fileName + @" has a wrong format.", @"Error");
