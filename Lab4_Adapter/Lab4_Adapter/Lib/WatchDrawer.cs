@@ -17,9 +17,9 @@ namespace Lab4_Adapter {
             int minutes = Convert.ToInt32(time.ToString("mm"));
             int seconds = Convert.ToInt32(time.ToString("ss"));
 
-            double angle1 = hours * Math.PI / 6;
-            double angle2 = minutes * Math.PI / 30;
-            double angle3 = seconds * Math.PI / 30;
+            var angle1 = 2.0 * Math.PI * (hours + minutes / 60.0) / 12.0;
+            var angle2 = 2.0 * Math.PI * (minutes + seconds / 60.0) / 60.0;
+            var angle3 = 2.0 * Math.PI * seconds / 60.0;
 
             DrawArrow(g, size, new Pen(Color.Black, 4), Convert.ToDouble(angle1), 190);
             DrawArrow(g, size, new Pen(Color.Black, 3), Convert.ToDouble(angle2), 220);
@@ -31,7 +31,7 @@ namespace Lab4_Adapter {
         public void DrawClockFace(Graphics g, Size size) {
             g.FillEllipse(new SolidBrush(Color.White), 0, 0, size.Width, size.Height);
 
-            double angle = -Math.PI / 3;
+            var angle = -Math.PI / 3;
 
             for (var i = 1; i <= 12; i++) {
                 var x = 250 * Math.Cos(angle) + size.Width / 2;
