@@ -1,5 +1,5 @@
 namespace Lab6_ChainOfResponsibility.Models {
-    public class Handler {
+    public abstract class Handler {
         private Handler? _sucessor;
         private Request _request;
 
