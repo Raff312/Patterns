@@ -13,30 +13,34 @@ namespace Project2.MongoDb.Repositories {
             return _database.GetCollection<TEntity>(collection);
         }
 
-        public async Task CreateAsync<T>(string collection, T entity) where T : PersistableEntity {
-            await GetCollection<T>(collection).InsertOneAsync(entity);
+        public async Task CreateAsync<TEntity>(string collection, TEntity entity) where TEntity : PersistableEntity {
+            await GetCollection<TEntity>(collection).InsertOneAsync(entity);
         }
 
-        public async Task<bool> DeleteAsync<T>(string collection, Guid id) where T : PersistableEntity {
-            var result = await GetCollection<T>(collection).DeleteOneAsync(x => x.Id == id).ConfigureAwait(false);
+        public async Task<bool> DeleteAsync<TEntity>(string collection, Guid id) where TEntity : PersistableEntity {
+            var result = await GetCollection<TEntity>(collection).DeleteOneAsync(x => x.Id == id).ConfigureAwait(false);
             return result.DeletedCount > 0;
         }
 
-        public async Task<bool> DeleteAsync<T>(string collection, T entity) where T : PersistableEntity {
-            var result = await DeleteAsync<T>(collection, entity.Id);
+        public async Task<bool> DeleteAsync<TEntity>(string collection, TEntity entity) where TEntity : PersistableEntity {
+            var result = await DeleteAsync<TEntity>(collection, entity.Id);
             return result;
         }
 
-        public async Task<T?> GetByIdAsync<T>(string collection, Guid id) where T : PersistableEntity {
-            return await GetCollection<T>(collection).Find(x => x.Id == id).FirstOrDefaultAsync();
+        public async Task<TEntity?> GetByIdAsync<TEntity>(string collection, Guid id) where TEntity : PersistableEntity {
+            return await GetCollection<TEntity>(collection).Find(x => x.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<IList<T>> ListAllAsync<T>(string collection) where T : PersistableEntity {
-            return await GetCollection<T>(collection).Find(x => true).ToListAsync(); 
+        public async Task<IList<TEntity>> ListAllAsync<TEntity>(string collection) where TEntity : PersistableEntity {
+            return await GetCollection<TEntity>(collection).Find(x => true).ToListAsync(); 
         }
 
-        public async Task UpdateAsync<T>(string collection, T entity) where T : PersistableEntity {
-            await GetCollection<T>(collection).FindOneAndReplaceAsync(x => x.Id == entity.Id, entity);
+        public async Task UpdateAsync<TEntity>(string collection, TEntity entity) where TEntity : PersistableEntity {
+            await GetCollection<TEntity>(collection).FindOneAndReplaceAsync(x => x.Id == entity.Id, entity);
+        }
+
+        public async Task<IList<TDerived>> FindOfTypeAsync<TEntity, TDerived>(string collection) where TDerived : TEntity {
+            return await GetCollection<TEntity>(collection).OfType<TDerived>().Find(x => true).ToListAsync();
         }
     }
 

@@ -13,24 +13,24 @@ export class ApiClient {
         protected zone: NgZone
     ) { }
 
-    public get(url: string, silent?: boolean, full: boolean = false): Promise<any> {
+    public get(url: string): Promise<any> {
         const observable = this.http.get(`/${url}`, { headers: this.getHeaders(), observe: "response", withCredentials: this.getCredentialsOption() });
-        return this.subscribe(observable, url, silent, full);
+        return this.subscribe(observable);
     }
 
-    public delete(url: string, silent?: boolean): Promise<any> {
+    public delete(url: string): Promise<any> {
         const observable = this.http.delete(`/${url}`, { headers: this.getHeaders(), observe: "response", withCredentials: this.getCredentialsOption() });
-        return this.subscribe(observable, url, silent);
+        return this.subscribe(observable);
     }
 
-    public post(url: string, data: any, silent?: boolean): Promise<any> {
+    public post(url: string, data: any): Promise<any> {
         const observable = this.http.post(`/${url}`, JSON.stringify(data), { headers: this.getHeaders(), observe: "response", withCredentials: this.getCredentialsOption() });
-        return this.subscribe(observable, url, silent);
+        return this.subscribe(observable);
     }
 
-    public put(url: string, data: any, silent?: boolean): Promise<any> {
+    public put(url: string, data: any): Promise<any> {
         const observable = this.http.put(`/${url}`, JSON.stringify(data), { headers: this.getHeaders(), observe: "response", withCredentials: this.getCredentialsOption() });
-        return this.subscribe(observable, url, silent);
+        return this.subscribe(observable);
     }
 
     protected getHeaders(): HttpHeaders {
@@ -41,40 +41,28 @@ export class ApiClient {
         return undefined;
     }
 
-    protected subscribe(observable: Observable<object>, url: string, silent?: boolean, full: boolean = false): Promise<any> {
+    protected subscribe(observable: Observable<object>): Promise<any> {
         const promise = new Promise((resolve, reject) => {
             observable.subscribe({
                 next: r => {
                     setTimeout(() => {
                         this.zone.run(() => {
-                            if (full) {
-                                resolve(r);
-                            } else {
-                                resolve(r["body"]);
-                            }
+                            resolve(r["body"]);
                         });
                     });
                 },
                 error: r => {
-                    if (silent) {
-                        if (r.status === 500) {
-                            resolve({ code: "500" });
-                        } else {
-                            resolve(r.error || null);
-                        }
-                    } else {
-                        if (r.status === 400) {
-                            resolve(r.error || null);
-                        }
-                        if (r.status === 402) {
-                            reject(r);
-                            return;
-                        }
-                        if (r.status === 403) {
-                            resolve(null);
-                        }
+                    if (r.status === 400) {
+                        resolve(r.error || null);
+                    }
+                    if (r.status === 402) {
+                        reject(r);
+                        return;
+                    }
+                    if (r.status === 403) {
                         resolve(null);
                     }
+                    resolve(null);
                 }
             });
         });

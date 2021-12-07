@@ -1,18 +1,50 @@
 <h1>Список предметов</h1>
-<div class="list-group">
-    <a href="#" class="list-group-item list-group-item-action">
-        A second link item
-    </a>
-    <a href="#" class="list-group-item list-group-item-action">
-        A second link item
-    </a>
-    <a href="#" class="list-group-item list-group-item-action">
-        A second link item
-    </a>
-    <a href="#" class="list-group-item list-group-item-action">
-        A second link item
-    </a>
-    <a href="#" class="list-group-item list-group-item-action">
-        A second link item
-    </a>
-</div>
+<button type="button" class="btn btn-primary" (click)="createSubject()">Создать</button>
+<table class="table table-striped table-hover align-middle">
+    <thead>
+        <tr>
+            <td>Название</td>
+            <td>Экзамен</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let subject of subjects" (click)="onRowClick(subject, $event)">
+            <ng-template [ngTemplateOutlet]="loadTemplate(subject)"
+                        [ngTemplateOutletContext]="{ $implicit: subject}">
+            </ng-template>
+        </tr>
+    </tbody>
+</table>
+
+<ng-template #readOnlyTemplate let-subject>
+    <td>{{ subject.name }}</td>
+    <td>{{ subject.isExam ? "Да" : "Нет" }}</td>
+    <td>
+        <button type="button" class="btn btn-primary" (click)="editSubject(subject)">Изменить</button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-danger" (click)="deleteSubject(subject)">Удалить</button>
+    </td>
+</ng-template>
+
+<ng-template #editTemplate>
+    <td>
+        <input type="text" [(ngModel)]="editedSubject.name" class="form-control" />
+    </td>
+    <td>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" [(ngModel)]="editedSubject.isExam" id="isExamCheck">
+            <label class="form-check-label" for="isExamCheck">
+                Экзамен
+            </label>
+        </div>
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" (click)="saveSubject()">Сохранить</button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-danger" (click)="cancel()">Отмена</button>
+    </td>
+</ng-template>

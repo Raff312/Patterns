@@ -1,0 +1,8 @@
+<div class="data-wrapper">
+    <form>
+        <input class="form-control" type="text" [(ngModel)]="username" name="username" placeholder="Логин" required>
+        <input class="form-control" type="password" [(ngModel)]="password" name="password" placeholder="Пароль" required>
+        <button type="submit" class="btn btn-primary" (click)="signIn()">Войти</button>
+        <span *ngIf="noUser">Неверный логин или пароль</span>
+    </form>
+</div>

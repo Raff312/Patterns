@@ -15,6 +15,7 @@ namespace Project2.IoC {
 
         public static IServiceCollection AddRepositories(this IServiceCollection services) {
             services.AddScoped<ISubjectRepository, SubjectRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             return services;
         }
     }

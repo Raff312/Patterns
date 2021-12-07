@@ -4,12 +4,12 @@ namespace Project2.MongoDb.Repositories {
     public interface IRepository {
     }
 
-    public interface IRepository<T> : IRepository where T : PersistableEntity {
-        Task<IList<T>> ListAllAsync();
-        Task<T?> GetByIdAsync(Guid id);
-        Task<T> CreateAsync(T entity);
-        Task<T> UpdateAsync(T entity);
+    public interface IRepository<TEntity> : IRepository where TEntity : PersistableEntity {
+        Task<IList<TEntity>> ListAllAsync();
+        Task<TEntity?> GetByIdAsync(Guid id);
+        Task<TEntity> CreateAsync(TEntity entity);
+        Task<TEntity> UpdateAsync(TEntity entity);
         Task<bool> DeleteAsync(Guid id);
-        Task<bool> DeleteAsync(T entity);
+        Task<bool> DeleteAsync(TEntity entity);
     }
 }

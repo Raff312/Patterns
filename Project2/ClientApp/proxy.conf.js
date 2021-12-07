@@ -10,6 +10,13 @@ const PROXY_CONFIG = [
         ],
         target: target,
         secure: false
+    },
+    {
+        context: [
+            "/users",
+        ],
+        target: target,
+        secure: false
     }
 ];
 

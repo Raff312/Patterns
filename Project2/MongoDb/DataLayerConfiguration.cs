@@ -24,6 +24,7 @@ namespace Project2.MongoDb {
                 }
 
                 ConfigureSubject();
+                ConfigureUser();
 
                 Configured = true;
             }
@@ -32,14 +33,21 @@ namespace Project2.MongoDb {
         private static void ConfigureSubject() {
             BsonClassMap.RegisterClassMap<Subject>(cm => {
                 cm.AutoMap();
-                cm.MapProperty(x => x.Targets).SetIgnoreIfDefault(true);
+                cm.MapProperty(x => x.Checkpoints).SetIgnoreIfDefault(true);
             });
 
-            BsonClassMap.RegisterClassMap<Target>(cm => {
+            BsonClassMap.RegisterClassMap<Checkpoint>(cm => {
                 cm.AutoMap();
                 cm.MapProperty(x => x.Date).SetIgnoreIfDefault(true);
                 cm.MapProperty(x => x.CurrentPoint).SetIgnoreIfDefault(true);
-                cm.MapProperty(x => x.Theme).SetIgnoreIfDefault(true);
+            });
+        }
+
+        private static void ConfigureUser() {
+            BsonClassMap.RegisterClassMap<User>(cm => {
+                cm.AutoMap();
+                cm.MapProperty(x => x.SubjectIds).SetIgnoreIfDefault(true);
+                cm.MapProperty(x => x.SubjectPoints).SetIgnoreIfDefault(true);
             });
         }
     }

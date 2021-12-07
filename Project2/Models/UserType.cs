@@ -1,5 +1,5 @@
 namespace Project2.Models {
-    public enum Permission {
+    public enum UserType {
         Admin, Teacher, Student
     }
 }
