@@ -3,7 +3,6 @@ import { BaseModel } from "./base.model";
 export class CheckpointModel extends BaseModel {
 
     public id: string;
-    public date?: Date;
     public name: string;
     public maxPoint: number;
     public currentPoint?: number;
@@ -18,7 +17,7 @@ export class CheckpointModel extends BaseModel {
 }
 
 export interface ICheckpointModel {
-    date?: Date;
+    id: string;
     name: string;
     maxPoint: number;
     currentPoint?: number;

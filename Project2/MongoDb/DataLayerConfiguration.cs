@@ -38,7 +38,6 @@ namespace Project2.MongoDb {
 
             BsonClassMap.RegisterClassMap<Checkpoint>(cm => {
                 cm.AutoMap();
-                cm.MapProperty(x => x.Date).SetIgnoreIfDefault(true);
                 cm.MapProperty(x => x.CurrentPoint).SetIgnoreIfDefault(true);
             });
         }

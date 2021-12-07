@@ -1,1 +1,45 @@
-dfkljsdlfkjsdlfjsdlkjf
+<h1>{{ subject?.name }}</h1>
+<button type="button" class="btn btn-primary" (click)="createCheckpoint()">Создать</button>
+<table class="table table-striped table-hover align-middle">
+    <thead>
+        <tr>
+            <td>Название</td>
+            <td>Баллы</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let checkpoint of subject?.checkpoints">
+            <ng-template [ngTemplateOutlet]="loadTemplate(checkpoint)"
+                        [ngTemplateOutletContext]="{ $implicit: checkpoint }">
+            </ng-template>
+        </tr>
+    </tbody>
+</table>
+
+<ng-template #readOnlyTemplate let-checkpoint>
+    <td>{{ checkpoint.name }}</td>
+    <td>{{ checkpoint.maxPoint }}</td>
+    <td>
+        <button type="button" class="btn btn-primary" (click)="editCheckpoint(checkpoint)">Изменить</button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-danger" (click)="deleteCheckpoint(checkpoint)">Удалить</button>
+    </td>
+</ng-template>
+
+<ng-template #editTemplate>
+    <td>
+        <input type="text" [(ngModel)]="editedCheckpoint.name" class="form-control" />
+    </td>
+    <td>
+        <input type="number" [(ngModel)]="editedCheckpoint.maxPoint" class="form-control" />
+    </td>
+    <td>
+        <button type="button" class="btn btn-primary" (click)="saveCheckpoint()">Сохранить</button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-danger" (click)="cancel()">Отмена</button>
+    </td>
+</ng-template>

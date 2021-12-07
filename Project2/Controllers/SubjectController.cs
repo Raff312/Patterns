@@ -27,7 +27,7 @@ namespace Project2.Controllers {
             return await _subjectRepository.CreateAsync(subject);
         }
 
-        [HttpGet("subjectId:guid")]
+        [HttpGet("{subjectId:guid}")]
         public async Task<Subject?> Get(Guid subjectId) {
             var subject = await _subjectRepository.GetByIdAsync(subjectId);
             return subject;

@@ -6,15 +6,15 @@ export class SubjectModel extends BaseModel {
     public id: string;
     public name: string;
     public isExam: boolean;
-    public targets: CheckpointModel[];
+    public checkpoints: CheckpointModel[];
 
     constructor(data?: ISubjectModel) {
         super();
         if (data) {
             this.mapFromJson(data);
 
-            if (data.targets) {
-                this.targets = BaseModel.convertArray(CheckpointModel, data.targets);
+            if (data.checkpoints) {
+                this.checkpoints = BaseModel.convertArray(CheckpointModel, data.checkpoints);
             }
         }
     }
@@ -25,7 +25,7 @@ export interface ISubjectModel {
     id: string;
     name: string;
     isExam: boolean;
-    targets: ICheckpointModel[];
+    checkpoints: ICheckpointModel[];
 }
 
 export class CreateSubjectModel extends BaseModel {

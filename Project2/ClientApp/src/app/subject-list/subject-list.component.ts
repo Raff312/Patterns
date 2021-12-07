@@ -43,8 +43,29 @@ export class SubjectListComponent implements OnInit {
         return this.readOnlyTemplate;
     }
 
+    public onRowClick(subject: SubjectModel, event: MouseEvent): void {
+        let walker = null;
+        if (event) {
+            walker = event.target as HTMLElement;
+        }
+
+        while (walker) {
+            if (walker.classList.contains("btn")) return;
+            if (walker.classList.contains("form-control")) return;
+            if (walker.classList.contains("form-check-input")) return;
+            walker = walker.parentElement;
+        }
+
+        this.router.navigate(["/subjects", subject.id]);
+    }
+
     public editSubject(subject: SubjectModel): void {
         this.editedSubject = new SubjectModel(subject);
+    }
+
+    public async deleteSubject(subject: SubjectModel): Promise<void> {
+        await this.subjectService.delete(subject.id);
+        await this.loadSubjects();
     }
 
     public async saveSubject(): Promise<void> {
@@ -70,25 +91,6 @@ export class SubjectListComponent implements OnInit {
         }
 
         this.editedSubject = null;
-    }
-
-    public async deleteSubject(subject: SubjectModel): Promise<void> {
-        await this.subjectService.delete(subject.id);
-        await this.loadSubjects();
-    }
-
-    public onRowClick(subject: SubjectModel, event: MouseEvent): void {
-        let walker = null;
-        if (event) {
-            walker = event.target as HTMLElement;
-        }
-
-        while (walker) {
-            if (walker.classList.contains("btn")) return;
-            walker = walker.parentElement;
-        }
-
-        this.router.navigate(["/subjects", subject.id]);
     }
 
     private async loadSubjects(): Promise<void> {
