@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { AppState } from "../app.state";
 import { CreateSubjectModel, SubjectModel } from "../models/subject.model";
+import { UserType } from "../models/user.model";
 import { SubjectService } from "../services/subject.service";
 
 @Component({
@@ -18,12 +19,16 @@ export class SubjectListComponent implements OnInit {
     public isNewRecord = false;
 
     constructor(
-        private readonly appState: AppState,
+        public readonly appState: AppState,
         private readonly subjectService: SubjectService,
         private readonly router: Router
     ) { }
 
     public async ngOnInit(): Promise<void> {
+        if (!this.appState.initComplete) {
+            this.router.navigate(["/"]);
+        }
+
         await this.loadSubjects();
     }
 
@@ -94,7 +99,11 @@ export class SubjectListComponent implements OnInit {
     }
 
     private async loadSubjects(): Promise<void> {
-        this.subjects = await this.subjectService.list();
+        if (this.appState.currentUser.userType !== UserType.Admin) {
+            this.subjects = (await this.subjectService.list()).filter(x => this.appState.currentUser.subjectIds.includes(x.id));
+        } else {
+            this.subjects = await this.subjectService.list();
+        }
     }
 
 }

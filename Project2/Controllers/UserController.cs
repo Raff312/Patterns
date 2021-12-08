@@ -31,6 +31,7 @@ namespace Project2.Controllers {
             user.MiddleName = model.MiddleName;
             user.Username = model.Username;
             user.Password = model.Password;
+            user.UserType = model.UserType;
 
             return await _userRepository.CreateAsync(user);
         }

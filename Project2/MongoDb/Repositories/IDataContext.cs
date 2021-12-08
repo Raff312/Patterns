@@ -8,6 +8,5 @@ namespace Project2.MongoDb.Repositories {
         Task UpdateAsync<TEntity>(string collection, TEntity entity) where TEntity : PersistableEntity;
         Task<bool> DeleteAsync<TEntity>(string collection, Guid id) where TEntity : PersistableEntity;
         Task<bool> DeleteAsync<TEntity>(string collection, TEntity entity) where TEntity : PersistableEntity;
-        Task<IList<TDerived>> FindOfTypeAsync<TEntity, TDerived>(string collection) where TDerived : TEntity;
     }
 }

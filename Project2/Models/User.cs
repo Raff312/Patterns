@@ -7,7 +7,7 @@ namespace Project2.Models {
         public string Username { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public List<Guid>? SubjectIds { get; set; }
-        public Dictionary<Guid, Dictionary<Guid, int>>? SubjectPoints { get; set; }
+        public IDictionary<string, int>? CheckpointPoints { get; set; }
 
         public void Update(User entity) {
             FirstName = entity.FirstName;
@@ -16,7 +16,7 @@ namespace Project2.Models {
             Username = entity.Username;
             Password = entity.Password;
             SubjectIds = entity.SubjectIds;
-            SubjectPoints = entity.SubjectPoints;
+            CheckpointPoints = entity.CheckpointPoints;
             UserType = entity.UserType;
         }
     }

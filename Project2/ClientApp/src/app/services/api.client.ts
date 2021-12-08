@@ -52,17 +52,7 @@ export class ApiClient {
                     });
                 },
                 error: r => {
-                    if (r.status === 400) {
-                        resolve(r.error || null);
-                    }
-                    if (r.status === 402) {
-                        reject(r);
-                        return;
-                    }
-                    if (r.status === 403) {
-                        resolve(null);
-                    }
-                    resolve(null);
+                    reject(r);
                 }
             });
         });

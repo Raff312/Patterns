@@ -9,7 +9,7 @@ namespace Project2.MongoDb.Repositories {
             _database = database;
         }
 
-        public IMongoCollection<TEntity> GetCollection<TEntity>(string collection) {
+        private IMongoCollection<TEntity> GetCollection<TEntity>(string collection) {
             return _database.GetCollection<TEntity>(collection);
         }
 
@@ -37,10 +37,6 @@ namespace Project2.MongoDb.Repositories {
 
         public async Task UpdateAsync<TEntity>(string collection, TEntity entity) where TEntity : PersistableEntity {
             await GetCollection<TEntity>(collection).FindOneAndReplaceAsync(x => x.Id == entity.Id, entity);
-        }
-
-        public async Task<IList<TDerived>> FindOfTypeAsync<TEntity, TDerived>(string collection) where TDerived : TEntity {
-            return await GetCollection<TEntity>(collection).OfType<TDerived>().Find(x => true).ToListAsync();
         }
     }
 

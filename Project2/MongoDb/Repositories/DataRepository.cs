@@ -39,9 +39,5 @@ namespace Project2.MongoDb.Repositories {
             await Context.UpdateAsync(Collection, entity).ConfigureAwait(false);
             return entity;
         }
-
-        protected Task<IList<TDerived>> FindOfTypeAsync<TDerived>() where TDerived : TEntity {
-            return Context.FindOfTypeAsync<TEntity, TDerived>(Collection);
-        }
     }
 }

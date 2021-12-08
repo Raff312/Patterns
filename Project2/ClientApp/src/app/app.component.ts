@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { AppState } from "./app.state";
-import { CreateUserModel, UserType } from "./models/user.model";
+import { CreateUserModel } from "./models/user.model";
 import { UserService } from "./services/user.service";
 
 @Component({
@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
 
     public async ngOnInit(): Promise<void> {
         // await this.createAdminUser();
+        // await this.createStudentUser();
     }
 
     private async createAdminUser(): Promise<void> {
@@ -23,8 +24,19 @@ export class AppComponent implements OnInit {
         createAdminUser.firstName = "Admin";
         createAdminUser.username = "admin";
         createAdminUser.password = "admin";
-        createAdminUser.userType = UserType.Admin;
+        createAdminUser.userType = 0;
         await this.userService.create(createAdminUser);
+    }
+
+    private async createStudentUser(): Promise<void> {
+        const createStudentUser = new CreateUserModel();
+        createStudentUser.firstName = "Rafik";
+        createStudentUser.secondName = "Bikmaev";
+        createStudentUser.middleName = "Ravilevich";
+        createStudentUser.username = "rafik";
+        createStudentUser.password = "rafik";
+        createStudentUser.userType = 2;
+        await this.userService.create(createStudentUser);
     }
 
 }

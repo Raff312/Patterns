@@ -5,7 +5,6 @@ export class CheckpointModel extends BaseModel {
     public id: string;
     public name: string;
     public maxPoint: number;
-    public currentPoint?: number;
 
     constructor(data?: ICheckpointModel) {
         super();
@@ -20,5 +19,4 @@ export interface ICheckpointModel {
     id: string;
     name: string;
     maxPoint: number;
-    currentPoint?: number;
 }

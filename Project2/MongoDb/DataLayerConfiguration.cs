@@ -38,7 +38,6 @@ namespace Project2.MongoDb {
 
             BsonClassMap.RegisterClassMap<Checkpoint>(cm => {
                 cm.AutoMap();
-                cm.MapProperty(x => x.CurrentPoint).SetIgnoreIfDefault(true);
             });
         }
 
@@ -46,7 +45,7 @@ namespace Project2.MongoDb {
             BsonClassMap.RegisterClassMap<User>(cm => {
                 cm.AutoMap();
                 cm.MapProperty(x => x.SubjectIds).SetIgnoreIfDefault(true);
-                cm.MapProperty(x => x.SubjectPoints).SetIgnoreIfDefault(true);
+                cm.MapProperty(x => x.CheckpointPoints).SetIgnoreIfDefault(true);
             });
         }
     }

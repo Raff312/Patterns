@@ -8,8 +8,9 @@ export class UserModel extends BaseModel {
     public middleName: string;
     public username: string;
     public password: string;
+    public userType: UserType;
     public subjectIds?: string[];
-    public subjectPoints?: Map<string, Map<string, number>>;
+    public checkpointPoints?: Map<string, number>;
 
     constructor(data?: IUserModel) {
         super();
@@ -27,8 +28,9 @@ export interface IUserModel {
     middleName: string;
     username: string;
     password: string;
+    userType: UserType;
     subjectIds?: string[];
-    subjectPoints?: Map<string, Map<string, number>>;
+    checkpointPoints?: Map<string, number>;
 }
 
 export class CreateUserModel {

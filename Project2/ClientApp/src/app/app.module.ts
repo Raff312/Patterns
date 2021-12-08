@@ -12,6 +12,7 @@ import { SubjectService } from "./services/subject.service";
 import { UserService } from "./services/user.service";
 import { AppState } from "./app.state";
 import { AuthComponent } from "./auth/auth.component";
+import { UsersComponent } from "./users/users.component";
 
 @NgModule({
     declarations: [
@@ -19,7 +20,8 @@ import { AuthComponent } from "./auth/auth.component";
         NavMenuComponent,
         SubjectListComponent,
         SubjectComponent,
-        AuthComponent
+        AuthComponent,
+        UsersComponent
     ],
     imports: [
         BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -27,8 +29,7 @@ import { AuthComponent } from "./auth/auth.component";
         FormsModule,
         RouterModule.forRoot([
             {
-                path: "", component: AuthComponent,
-                pathMatch: "full"
+                path: "", component: AuthComponent
             },
             {
                 path: "subjects",
@@ -36,6 +37,9 @@ import { AuthComponent } from "./auth/auth.component";
                     { path: "", component: SubjectListComponent },
                     { path: ":subjectId", component: SubjectComponent }
                 ]
+            },
+            {
+                path: "users", component: UsersComponent
             }
         ])
     ],

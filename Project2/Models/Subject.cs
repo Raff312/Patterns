@@ -7,7 +7,6 @@ namespace Project2.Models {
         public void Update(Subject entity) {
             Name = entity.Name;
             IsExam = entity.IsExam;
-            Checkpoints = entity.Checkpoints?.Select(x => new Checkpoint { Name = x.Name, MaxPoint = x.MaxPoint, CurrentPoint = x.CurrentPoint }).ToList();
         }
     }
 }

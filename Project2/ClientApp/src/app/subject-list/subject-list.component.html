@@ -1,5 +1,5 @@
 <h1>Список предметов</h1>
-<button type="button" class="btn btn-primary" (click)="createSubject()">Создать</button>
+<button *ngIf="appState.currentUser.userType === 0" type="button" class="btn btn-primary" (click)="createSubject()">Создать</button>
 <table class="table table-striped table-hover align-middle">
     <thead>
         <tr>
@@ -22,10 +22,10 @@
     <td>{{ subject.name }}</td>
     <td>{{ subject.isExam ? "Да" : "Нет" }}</td>
     <td>
-        <button type="button" class="btn btn-primary" (click)="editSubject(subject)">Изменить</button>
+        <button *ngIf="appState.currentUser.userType === 0" type="button" class="btn btn-primary" (click)="editSubject(subject)">Изменить</button>
     </td>
     <td>
-        <button type="button" class="btn btn-danger" (click)="deleteSubject(subject)">Удалить</button>
+        <button *ngIf="appState.currentUser.userType === 0" type="button" class="btn btn-danger" (click)="deleteSubject(subject)">Удалить</button>
     </td>
 </ng-template>
 

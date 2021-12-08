@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { AppState } from "../app.state";
 
 @Component({
     selector: "nav-menu",
@@ -8,6 +9,8 @@ import { Component } from "@angular/core";
 export class NavMenuComponent {
 
     public isExpanded = false;
+
+    constructor(public readonly appState: AppState) { }
 
     public collapse() {
         this.isExpanded = false;

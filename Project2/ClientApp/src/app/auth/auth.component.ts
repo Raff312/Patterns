@@ -31,8 +31,8 @@ export class AuthComponent implements OnInit {
             return;
         }
 
-        const user = await this.userService.getByUsername(this.username);
-        if (!user || user.password !== this.password) {
+        this.appState.currentUser = await this.userService.getByUsername(this.username);
+        if (! this.appState.currentUser ||  this.appState.currentUser.password !== this.password) {
             this.noUser = true;
             return;
         }

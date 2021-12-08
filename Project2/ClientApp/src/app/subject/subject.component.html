@@ -1,5 +1,12 @@
 <h1>{{ subject?.name }}</h1>
-<button type="button" class="btn btn-primary" (click)="createCheckpoint()">Создать</button>
+<div *ngIf="appState.currentUser.userType === 1" class="actions">
+    <button *ngIf="!setMode" type="button" class="btn btn-primary" (click)="createCheckpoint()">Создать</button>
+    <button *ngIf="!setMode && !editedCheckpoint" type="button" class="btn btn-primary" (click)="setPoints()">Проставить баллы</button>
+    <select *ngIf="setMode" class="form-select" [ngModel]="selectedUserId" (ngModelChange)="onUserSelected($event)">
+        <option *ngFor="let user of users" [value]="user.id">{{ user.firstName }} {{ user.secondName }} {{ user.middleName }}</option>
+    </select>
+    <button *ngIf="setMode" type="button" class="btn btn-primary" (click)="savePoints()">Сохранить</button>
+</div>
 <table class="table table-striped table-hover align-middle">
     <thead>
         <tr>
@@ -20,12 +27,16 @@
 
 <ng-template #readOnlyTemplate let-checkpoint>
     <td>{{ checkpoint.name }}</td>
-    <td>{{ checkpoint.maxPoint }}</td>
     <td>
-        <button type="button" class="btn btn-primary" (click)="editCheckpoint(checkpoint)">Изменить</button>
+        <ng-container *ngIf="setMode && currentUser"><input type="number" min="0" [max]="checkpoint.maxPoint" class="form-control" [(ngModel)]="currentUser.checkpointPoints[checkpoint.id]"> / </ng-container>
+        <ng-container *ngIf="appState.currentUser.userType === 2">{{ appState.currentUser.checkpointPoints[checkpoint.id] }} / </ng-container>
+        {{ checkpoint.maxPoint }}
     </td>
     <td>
-        <button type="button" class="btn btn-danger" (click)="deleteCheckpoint(checkpoint)">Удалить</button>
+        <button *ngIf="appState.currentUser.userType === 1 && !setMode" type="button" class="btn btn-primary" (click)="editCheckpoint(checkpoint)">Изменить</button>
+    </td>
+    <td>
+        <button *ngIf="appState.currentUser.userType === 1 && !setMode" type="button" class="btn btn-danger" (click)="deleteCheckpoint(checkpoint)">Удалить</button>
     </td>
 </ng-template>
 
@@ -37,9 +48,9 @@
         <input type="number" [(ngModel)]="editedCheckpoint.maxPoint" class="form-control" />
     </td>
     <td>
-        <button type="button" class="btn btn-primary" (click)="saveCheckpoint()">Сохранить</button>
+        <button *ngIf="!setMode" type="button" class="btn btn-primary" (click)="saveCheckpoint()">Сохранить</button>
     </td>
     <td>
-        <button type="button" class="btn btn-danger" (click)="cancel()">Отмена</button>
+        <button *ngIf="!setMode" type="button" class="btn btn-danger" (click)="cancel()">Отмена</button>
     </td>
 </ng-template>
