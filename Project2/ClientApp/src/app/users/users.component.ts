@@ -89,9 +89,10 @@ export class UsersComponent implements OnInit {
             const createUser = new CreateUserModel();
             createUser.firstName = this.editedUser.firstName;
             createUser.secondName = this.editedUser.secondName;
-            createUser.middleName = this.editedUser.firstName;
+            createUser.middleName = this.editedUser.middleName;
             createUser.username = this.editedUser.username;
             createUser.password = this.editedUser.password;
+            createUser.subjectIds = this.editedUser.subjectIds;
             createUser.userType = this.userTypes === "students" ? UserType.Student : UserType.Teacher;
             await this.userService.create(createUser);
             await this.updateUsers();

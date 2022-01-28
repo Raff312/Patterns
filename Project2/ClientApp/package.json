@@ -5,7 +5,7 @@
         "ng": "ng",
         "prestart": "node aspnetcore-https",
         "start": "run-script-os",
-        "start:windows": "npx ng serve --port 44402 --ssl --ssl-cert C:\\Users\\Rafik\\AppData\\Roaming\\ASP.NET\\https\\project2.pem --ssl-key C:\\Users\\Rafik\\AppData\\Roaming\\ASP.NET\\https\\project2.key",
+        "start:windows": "npx ng serve --port 44402 --ssl --ssl-cert C:\\Users\\Raff\\AppData\\Roaming\\ASP.NET\\https\\project2.pem --ssl-key C:\\Users\\Raff\\AppData\\Roaming\\ASP.NET\\https\\project2.key",
         "build": "npx ng build",
         "build:ssr": "npx ng run Project2:server:dev",
         "dev": "npx ng build --watch"

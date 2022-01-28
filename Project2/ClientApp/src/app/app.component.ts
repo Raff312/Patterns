@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { AppState } from "./app.state";
-import { CreateUserModel } from "./models/user.model";
+import { CreateUserModel, UserType } from "./models/user.model";
 import { UserService } from "./services/user.service";
 
 @Component({
@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
         createAdminUser.firstName = "Admin";
         createAdminUser.username = "admin";
         createAdminUser.password = "admin";
-        createAdminUser.userType = 0;
+        createAdminUser.userType = UserType.Admin;
         await this.userService.create(createAdminUser);
     }
 
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
         createStudentUser.middleName = "Ravilevich";
         createStudentUser.username = "rafik";
         createStudentUser.password = "rafik";
-        createStudentUser.userType = 2;
+        createStudentUser.userType = UserType.Student;
         await this.userService.create(createStudentUser);
     }
 

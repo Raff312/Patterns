@@ -32,6 +32,7 @@ namespace Project2.Controllers {
             user.Username = model.Username;
             user.Password = model.Password;
             user.UserType = model.UserType;
+            user.SubjectIds = model.SubjectIds;
 
             return await _userRepository.CreateAsync(user);
         }

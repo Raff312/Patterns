@@ -41,6 +41,7 @@ export class CreateUserModel {
     public username: string;
     public password: string;
     public userType: UserType;
+    public subjectIds?: string[];
 
 }
 
